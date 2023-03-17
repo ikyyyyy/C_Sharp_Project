@@ -1,0 +1,32 @@
+DELIMITER //
+CREATE PROCEDURE ajouter_etudiant(IN code INT, IN nom VARCHAR(30), IN prenom VARCHAR(30),IN niveau INT, code_fil varchar(7),IN new_id INT)
+BEGIN
+    DECLARE element_count INT;
+    
+    SELECT COUNT(*) INTO element_count FROM etudiant WHERE id = new_id ;
+    
+    IF element_count > 0 THEN
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'Element ID already exists.';
+    ELSE
+        INSERT INTO etudiant VALUES (new_id, code, nom, prenom, niveau, code_fil);
+    END IF;
+END//
+
+
+____________________________________________________________________________________________________________________________________________________
+
+DELIMITER //
+CREATE PROCEDURE supprimer_etudiant(IN new_id INT)
+BEGIN
+    DECLARE element_count INT;
+    
+    SELECT COUNT(*) INTO element_count FROM etudiant WHERE id = new_id ;
+    
+    IF element_count <=0 THEN
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'Element ID does not exists.';
+    ELSE
+        DELETE FROM etudiant WHERE id=new_id;
+    END IF;
+END//
