@@ -1,0 +1,74 @@
+DROP TABLE MOYENNES;
+DROP TABLE NOTES;
+DROP TABLE ETUDIANT;
+DROP TABLE MATIERE;
+DROP TABLE MODULE;
+DROP TABLE FILIERE;
+
+--------------------------------------------------------------
+
+le nom de la base de donnees % MYSQL : mini_projet
+
+--------------------------------------------------------------
+
+pour ORACLE : 
+create user mini_projet identified by pwd;
+grant resource, dba, connect to mini_project;
+connect mini_project/pwd
+
+--------------------------------------------------------------
+
+
+CREATE TABLE FILIERE(
+id int not null,
+code varchar(6) not null unique,
+designation varchar(30),
+PRIMARY KEY (id, code)
+);
+
+CREATE TABLE MODULE(
+id int not null,
+code varchar(7) not null unique,
+designation varchar(40),
+niveau int,
+semestre varchar(3),
+code_fil varchar(6) references FILIERE(code),
+PRIMARY KEY (id, code)
+);
+
+CREATE TABLE MATIERE(
+id int not null,
+code varchar(5) not null unique,
+designation varchar(40),
+VH decimal(2,1),
+code_module varchar(6) references MODULE(code),
+PRIMARY KEY(id, code) 
+);
+
+
+CREATE TABLE ETUDIANT(
+id int not null,
+code int not null unique,
+nom varchar(30),
+prenom varchar(30),
+niveau int,
+code_fil varchar(7) references FILIERE(code),
+PRIMARY KEY(id, code)
+);
+
+CREATE TABLE NOTES(
+id int not null,
+code_etudiant int references ETUDIANT(code),
+code_mat varchar(5) references MATIERE(code),
+note decimal(2,2),
+PRIMARY KEY(code_etudiant, code_mat)
+);
+
+CREATE TABLE MOYENNES(
+id int not null,
+code_etudiant int references ETUDIANT(code),
+code_fil varchar(6) references FILIERE(code),
+niveau int,
+moyenne decimal(2,2),
+PRIMARY KEY(id,code_etudiant,code_fil,niveau)
+);
