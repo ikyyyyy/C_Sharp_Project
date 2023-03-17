@@ -1,0 +1,34 @@
+CREATE OR REPLACE PROCEDURE supprimer_etudiant(new_id IN NUMBER) AS
+element_count NUMBER;
+BEGIN
+SELECT COUNT(*) INTO element_count FROM etudiant WHERE id = new_id;
+IF element_count <= 0 THEN
+RAISE_APPLICATION_ERROR(-20001, 'Element ID does not exist.');
+ELSE
+DELETE FROM etudiant WHERE id = new_id;
+END IF;
+END;
+/
+
+
+____________________________________________________________________________________
+
+CREATE OR REPLACE PROCEDURE ajouter_etudiant(
+code IN INT,
+nom IN VARCHAR2,
+prenom IN VARCHAR2,
+niveau IN INT,
+code_fil IN VARCHAR2,
+new_id IN INT
+)
+IS
+element_count INT;
+BEGIN
+SELECT COUNT(*) INTO element_count FROM etudiant WHERE id = new_id ;
+IF element_count > 0 THEN
+RAISE_APPLICATION_ERROR(-20001, 'Element ID already exists.');
+ELSE
+INSERT INTO etudiant VALUES ( new_id ,code, nom, prenom, niveau, code_fil);
+END IF;
+END;
+/
