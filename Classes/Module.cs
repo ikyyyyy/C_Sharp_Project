@@ -8,6 +8,7 @@ namespace Test_MiniProjet
 {
     class Module :Model
     {
+        static int n = 100;
         public string code { get; set; }
         public string designation { get; set; }
         public int niveau { get; set; }
@@ -21,7 +22,15 @@ namespace Test_MiniProjet
 
         public Module(int id, string code, string designation, int niveau, string semestre, string code_fil)
         {
-            this.id = id;
+            if (this.getMaxId() == 0)
+            {
+                this.id = n;
+                n++;
+
+            }
+
+            else this.id = this.getMaxId() + 1;
+
             this.code = code;
             this.designation = designation;
             this.niveau = niveau;

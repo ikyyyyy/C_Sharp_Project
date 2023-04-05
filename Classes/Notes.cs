@@ -8,6 +8,7 @@ namespace Test_MiniProjet
 {
     class Notes : Model
     {
+        static int n = 100;
         //Notes (id, #code_eleve,#code_mat, note)
         public string code_eleve { get; set; }
         public string code_mat { get; set; }
@@ -20,7 +21,15 @@ namespace Test_MiniProjet
 
         public Notes(int id, string code_eleve, string code_mat, float note)
         {
-            this.id = id;
+            if (this.getMaxId() == 0)
+            {
+                this.id = n;
+                n++;
+
+            }
+
+            else this.id = this.getMaxId() + 1;
+
             this.code_eleve = code_eleve;
             this.code_mat = code_mat;
             this.note = note;

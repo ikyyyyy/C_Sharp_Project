@@ -9,13 +9,21 @@ namespace Test_MiniProjet
 {
     class Filiere : Model
     {
-        
+        static int n = 100;
         public string code { get; set; }
         public string designation { get; set; }
         
         public Filiere() { }
         public Filiere(int id, string code, string nom) {
-            this.id = id;
+            if (this.getMaxId() == 0)
+            {
+                this.id = n;
+                n++;
+
+            }
+
+            else this.id = this.getMaxId() + 1;
+
             this.code = code;
             this.designation = nom;
         }

@@ -8,6 +8,7 @@ namespace Test_MiniProjet
 {
     class Matiere :Model
     {
+        static int n = 100;
         //Matiere (id, code,designation, VH, #code_module)
         public string code { get; set; }
         public string designation { get; set; }
@@ -18,7 +19,15 @@ namespace Test_MiniProjet
 
         public Matiere(int id, string code, string designation, int VH, string code_module)
         {
-            this.id = id;
+            if (this.getMaxId() == 0)
+            {
+                this.id = n;
+                n++;
+
+            }
+
+            else this.id = this.getMaxId() + 1;
+
             this.code = code;
             this.designation = designation;
             this.VH = VH;

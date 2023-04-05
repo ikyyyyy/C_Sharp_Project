@@ -7,6 +7,7 @@ namespace Test_MiniProjet
 {
     class Moyennes :Model
     {
+        static int n = 100;
         //Moyennes(id, #code_eleve,#code_fil, niveau, moyenne
         public string code_eleve { get; set; }
         public string code_fil { get; set; }
@@ -17,7 +18,15 @@ namespace Test_MiniProjet
 
         public Moyennes(int id, string code_eleve, string code_fil, int niveau, float moyenne )
         {
-            this.id = id;
+            if (this.getMaxId() == 0)
+            {
+                this.id = n;
+                n++;
+
+            }
+
+            else this.id = this.getMaxId() + 1;
+
             this.code_eleve = code_eleve;
             this.code_fil = code_fil;
             this.niveau = niveau;
