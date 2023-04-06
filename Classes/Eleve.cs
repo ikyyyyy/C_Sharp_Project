@@ -8,13 +8,13 @@ namespace Test_MiniProjet
 {
     public class Eleve : Model
     {
-      static int n = 100;
+     
         public Eleve()
         {
 
         }
       
-        public string code { get; set; }
+     
         public string nom { get; set; }
         public string prenom { get; set; }
         public int niveau { get; set; }
@@ -27,16 +27,6 @@ namespace Test_MiniProjet
         }
         public Eleve(string code, string nom, string prenom, int niveau, string code_fil)
         {
-          if (this.getMaxId() == 0)
-            {
-                this.id = n;
-                n++;
-               
-            }
-
-            else this.id = this.getMaxId()+1;
-   
-        
                 this.code = code;
                 this.niveau = niveau;
                 this.nom = nom;
@@ -45,15 +35,7 @@ namespace Test_MiniProjet
 
         }
 
-        public override string ToString()
-        {
-            return "nom: " + nom + " code " + code + "  id " + id;
-        }
-
-        public void afficher()
-        {
-            Console.WriteLine("Id: " + id + "  Code: " + code + "  nom: " + nom + "   prenom: " + prenom + "niveau: " + niveau + "   Code_Fil: " + code_fil);
-        }
+        
 
         public static Eleve ConvertToEleve(dynamic obj)
         {

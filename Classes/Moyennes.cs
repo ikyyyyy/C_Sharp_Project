@@ -5,7 +5,7 @@ using MiniProjet;
 using Newtonsoft.Json;
 namespace Test_MiniProjet
 {
-    class Moyennes :Model
+    class Moyennes : Model
     {
         static int n = 100;
         //Moyennes(id, #code_eleve,#code_fil, niveau, moyenne
@@ -16,16 +16,16 @@ namespace Test_MiniProjet
 
         public Moyennes() { }
 
-        public Moyennes(int id, string code_eleve, string code_fil, int niveau, float moyenne )
+        public Moyennes(string code_eleve, string code_fil, int niveau, float moyenne )
         {
-            if (this.getMaxId() == 0)
+            if (this.getMaxCode() == 0)
             {
-                this.id = n;
+                this.code = n;
                 n++;
 
             }
+            else this.code = this.getMaxCode() + 1;
 
-            else this.id = this.getMaxId() + 1;
 
             this.code_eleve = code_eleve;
             this.code_fil = code_fil;

@@ -19,16 +19,15 @@ namespace Test_MiniProjet
 
         }
 
-        public Notes(int id, string code_eleve, string code_mat, float note)
+        public Notes(string code_eleve, string code_mat, float note)
         {
-            if (this.getMaxId() == 0)
+            if (this.getMaxCode() == 0)
             {
-                this.id = n;
+                this.code = n;
                 n++;
 
             }
-
-            else this.id = this.getMaxId() + 1;
+            else this.code = this.getMaxCode() + 1;
 
             this.code_eleve = code_eleve;
             this.code_mat = code_mat;
