@@ -33,17 +33,17 @@ END//
 ____________________________________________________________________________________________________________________________________________________
 
 DELIMITER //
-CREATE or replace PROCEDURE supprimer_notes(IN new_code INT, IN new_code_eleve VARCHAR(10), IN new_code_matiere VARCHAR(10), IN new_note FLOAT)
+CREATE or replace PROCEDURE supprimer_notes(IN new_code INT, IN new_code_eleve VARCHAR(10), IN new_code_mat VARCHAR(10), IN new_note FLOAT)
 BEGIN
     DECLARE element_count INT;
     
-    SELECT COUNT(*) INTO element_count FROM notes WHERE code_eleve = new_code_eleve and code_mat=new_code_matiere and  note=new_note;
+    SELECT COUNT(*) INTO element_count FROM notes WHERE code_eleve = new_code_eleve and code_mat=new_code_mat and  note=new_note;
     
     IF element_count <=0 THEN
         SIGNAL SQLSTATE '45000' 
         SET MESSAGE_TEXT = 'note est introuvable!!';
     ELSE
-        DELETE FROM notes WHERE WHERE code_eleve = new_code_eleve and code_mat=new_code_matiere and  note=new_note;
+        DELETE FROM notes WHERE WHERE code_eleve = new_code_eleve and code_mat=new_code_mat and  note=new_note;
     END IF;
 END//
 
