@@ -1,0 +1,37 @@
+DELIMITER //
+CREATE or replace PROCEDURE ajouter_filiere(IN new_code varchar(10), IN new_designation VARCHAR(30))
+BEGIN
+    DECLARE element_count INT;
+
+    SELECT COUNT(*) INTO element_count FROM filiere WHERE code = new_code;
+
+    IF element_count > 0 THEN
+        DELETE FROM filiere WHERE code = new_code;
+        INSERT INTO filiere VALUES (new_code, new_designation);
+    ELSE
+        INSERT INTO filiere VALUES (new_code, new_designation);
+    END IF;
+END//
+DELIMITER ;
+
+
+
+____________________________________________________________________________________________________________________________________________________
+
+DELIMITER //
+CREATE or replace PROCEDURE supprimer_filiere(IN new_code varchar(10))
+BEGIN
+    DECLARE element_count INT;
+    
+    SELECT COUNT(*) INTO element_count FROM filiere WHERE code = new_code ;
+    
+    IF element_count <=0 THEN
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'filiere introuvable.';
+    ELSE
+        DELETE FROM filiere WHERE code=new_code;
+    END IF;
+END//
+
+
+

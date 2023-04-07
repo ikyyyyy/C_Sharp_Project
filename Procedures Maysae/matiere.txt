@@ -1,0 +1,36 @@
+/
+DELIMITER //
+CREATE or replace PROCEDURE ajouter_matiere(IN new_code varchar(10), IN new_designation VARCHAR(30), IN new_VH INT , new_code_module varchar(10))
+BEGIN
+    DECLARE element_count INT;
+    
+    SELECT COUNT(*) INTO element_count FROM matiere WHERE code = new_code ;
+    
+    IF element_count > 0 THEN
+        DELETE FROM matiere WHERE code= new_code;
+        INSERT INTO matiere VALUES (new_code, new_designation, new_VH, new_code_module);
+    ELSE
+        INSERT INTO matiere VALUES (new_code, new_designation, new_VH, new_code_module);
+    END IF;
+END//
+
+
+____________________________________________________________________________________________________________________________________________________
+
+DELIMITER //
+CREATE or replace PROCEDURE supprimer_matiere(IN new_code varchar(10))
+BEGIN
+    DECLARE element_count INT;
+    
+    SELECT COUNT(*) INTO element_count FROM matiere WHERE code = new_code ;
+    
+    IF element_count <=0 THEN
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'matiere introuvable.';
+    ELSE
+        DELETE FROM matiere WHERE code = new_code;
+    END IF;
+END//
+
+
+

@@ -1,0 +1,51 @@
+
+DELIMITER //
+CREATE or replace PROCEDURE ajouter_moyennes(IN new_code INT, IN new_code_eleve VARCHAR(10), IN new_code_fil VARCHAR(10), IN new_niveau INT, IN new_moyenne FLOAT)
+BEGIN
+    DECLARE element_count INT;
+    
+    SELECT COUNT(*) INTO element_count FROM moyennes WHERE code_eleve = new_code_eleve and code_fil=new_code_fil and  niveau=new_niveau;
+    
+    IF element_count > 0 THEN
+         SIGNAL SQLSTATE '45000' 
+         SET MESSAGE_TEXT = 'cette moyenne existe déjà!!';
+    ELSE
+        INSERT INTO moyennes VALUES (new_code, new_code_eleve, new_code_fil, new_niveau , new_moyenne);
+    END IF;
+END//
+____________________________________________________________________________________________________________________________________________________
+
+DELIMITER //
+CREATE or replace PROCEDURE modifier_moyennes(IN new_code INT, IN new_code_eleve VARCHAR(10), IN new_code_fil VARCHAR(10), IN new_niveau INT, IN new_moyenne FLOAT )
+BEGIN
+    DECLARE element_count INT;
+    
+    SELECT COUNT(*) INTO element_count FROM moyennes WHERE code_eleve = new_code_eleve and code_fil=new_code_fil and niveau=new_niveau ;
+    
+    IF element_count > 0 THEN
+         Update  moyennes set moyenne=new_moyenne where code_eleve = new_code_eleve and code_fil=new_code_fil and niveau=new_niveau;
+    ELSE
+         SIGNAL SQLSTATE '45000' 
+         SET MESSAGE_TEXT = 'moyenne est introuvable!!';
+    END IF;
+END//
+
+____________________________________________________________________________________________________________________________________________________
+
+DELIMITER //
+CREATE or replace PROCEDURE supprimer_moyennes(IN new_code INT, IN new_code_eleve VARCHAR(10), IN new_code_fil VARCHAR(10), IN new_niveau INT, IN new_moyenne FLOAT)
+BEGIN
+    DECLARE element_count INT;
+    
+    SELECT COUNT(*) INTO element_count FROM moyennes WHERE code_eleve = new_code_eleve and code_fil=new_code_fil and  niveau=new_niveau;
+    
+    IF element_count <=0 THEN
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'moyenne est introuvable!!!';
+    ELSE
+        DELETE FROM moyennes WHERE  code_eleve = new_code_eleve and code_fil=new_code_fil and  niveau=new_niveau;
+    END IF;
+END//
+
+
+

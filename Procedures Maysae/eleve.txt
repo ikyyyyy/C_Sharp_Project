@@ -1,0 +1,36 @@
+
+DELIMITER //
+CREATE or replace PROCEDURE ajouter_eleve(IN new_code VARCHAR(10), IN new_nom VARCHAR(30), IN new_prenom VARCHAR(30),IN new_niveau INT, new_code_fil varchar(10))
+BEGIN
+    DECLARE element_count INT;
+    
+    SELECT COUNT(*) INTO element_count FROM eleve WHERE code = new_code ;
+    
+    IF element_count > 0 THEN
+        DELETE FROM eleve WHERE code= new_code;
+        INSERT INTO eleve VALUES (new_code, new_nom, new_prenom, new_niveau, new_code_fil);
+    ELSE
+        INSERT INTO eleve VALUES (new_code, new_nom, new_prenom, new_niveau, new_code_fil);
+    END IF;
+END//
+
+
+____________________________________________________________________________________________________________________________________________________
+
+DELIMITER //
+CREATE or replace PROCEDURE supprimer_eleve(IN new_code VARCHAR(10), IN new_nom VARCHAR(30), IN new_prenom VARCHAR(30),IN new_niveau INT, new_code_fil varchar(10))
+BEGIN
+    DECLARE element_count INT;
+    
+    SELECT COUNT(*) INTO element_count FROM eleve WHERE code = new_code ;
+    
+    IF element_count <=0 THEN
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'Eleve introuvable.';
+    ELSE
+        DELETE FROM eleve WHERE code = new_code;
+    END IF;
+END//
+
+
+

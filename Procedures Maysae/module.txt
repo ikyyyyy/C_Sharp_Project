@@ -1,0 +1,36 @@
+
+DELIMITER //
+CREATE PROCEDURE ajouter_module(IN id INT, IN designation VARCHAR(30), IN niveau INT, IN semestre VARCHAR(5) ,code_fil varchar(7),IN new_code INT)
+BEGIN
+    DECLARE element_count INT;
+    
+    SELECT COUNT(*) INTO element_count FROM module WHERE code = new_code ;
+    
+    IF element_count > 0 THEN
+        DELETE FROM module WHERE code= new_code;
+        INSERT INTO module VALUES (id, new_code, designation, niveau,  semestre,  code_fil);
+    ELSE
+        INSERT INTO module VALUES (id, new_code, designation, niveau,  semestre,  code_fil);
+    END IF;
+END//
+
+
+____________________________________________________________________________________________________________________________________________________
+
+DELIMITER //
+CREATE PROCEDURE supprimer_module(IN new_code INT)
+BEGIN
+    DECLARE element_count INT;
+    
+    SELECT COUNT(*) INTO element_count FROM module WHERE code = new_code ;
+    
+    IF element_count <=0 THEN
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'module introuvable.';
+    ELSE
+        DELETE FROM module WHERE code = new_code;
+    END IF;
+END//
+
+
+
