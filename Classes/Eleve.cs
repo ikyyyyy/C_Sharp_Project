@@ -13,7 +13,7 @@ namespace Test_MiniProjet
         {
 
         }
-      
+       
      
         public string nom { get; set; }
         public string prenom { get; set; }
@@ -32,7 +32,7 @@ namespace Test_MiniProjet
                 this.nom = nom;
                 this.prenom = prenom;
                 this.code_fil = code_fil;
-
+                this.code_string = 1;
         }
 
         

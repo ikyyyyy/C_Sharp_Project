@@ -31,6 +31,7 @@ namespace Test_MiniProjet
             this.code_fil = code_fil;
             this.niveau = niveau;
             this.moyenne = moyenne;
+            this.code_string = -1;
         }
         public static Moyennes ConvertToMoyennes(dynamic obj)
         {

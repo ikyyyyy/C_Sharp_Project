@@ -32,6 +32,7 @@ namespace Test_MiniProjet
             this.code_eleve = code_eleve;
             this.code_mat = code_mat;
             this.note = note;
+            this.code_string = -1;
         }
         public static Notes ConvertToNotes(dynamic obj)
         {
@@ -59,6 +60,11 @@ namespace Test_MiniProjet
             }
 
             return Result;
+        }
+
+        public void afficher()
+        {
+            Console.WriteLine(this.code + "    " + this.code_eleve + "   " + this.code_mat +"   " +this.note );
         }
     }
 }
